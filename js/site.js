@@ -235,6 +235,25 @@ const chatClose = chatWidget?.querySelector("[data-chat-close]");
 const chatMessages = chatWidget?.querySelector("[data-chat-messages]");
 const chatForm = chatWidget?.querySelector("[data-chat-form]");
 const chatInput = chatWidget?.querySelector("[data-chat-input]");
+let chatScrollPosition = 0;
+
+function isMobileChat() {
+  return window.matchMedia("(max-width: 600px)").matches;
+}
+
+function lockChatBackground() {
+  if (!isMobileChat()) return;
+  chatScrollPosition = window.scrollY;
+  document.body.classList.add("chat-open");
+  document.body.style.top = `-${chatScrollPosition}px`;
+}
+
+function unlockChatBackground() {
+  if (!document.body.classList.contains("chat-open")) return;
+  document.body.classList.remove("chat-open");
+  document.body.style.top = "";
+  window.scrollTo(0, chatScrollPosition);
+}
 
 function addChatMessage(text, { visitor = false, action } = {}) {
   if (!chatMessages) return;
@@ -269,6 +288,7 @@ function openChat() {
   if (!chatPanel || !chatToggle) return;
   chatPanel.hidden = false;
   chatToggle.setAttribute("aria-expanded", "true");
+  lockChatBackground();
   chatInput?.focus();
 }
 
@@ -276,6 +296,7 @@ function closeChat({ restoreFocus = true } = {}) {
   if (!chatPanel || !chatToggle || chatPanel.hidden) return false;
   chatPanel.hidden = true;
   chatToggle.setAttribute("aria-expanded", "false");
+  unlockChatBackground();
   if (restoreFocus) chatToggle.focus();
   return true;
 }
@@ -285,6 +306,12 @@ chatToggle?.addEventListener("click", () => {
   else closeChat();
 });
 chatClose?.addEventListener("click", () => closeChat());
+chatWidget?.addEventListener("click", (event) => {
+  if (isMobileChat() && document.body.classList.contains("chat-open") && event.target === chatWidget) closeChat();
+});
+chatWidget?.addEventListener("touchmove", (event) => {
+  if (document.body.classList.contains("chat-open") && !event.target.closest(".chat-panel")) event.preventDefault();
+}, { passive: false });
 
 chatWidget?.querySelectorAll("[data-chat-action]").forEach((button) => {
   button.addEventListener("click", () => {
@@ -331,5 +358,20 @@ chatInput?.addEventListener("keydown", (event) => {
 });
 
 document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape" && closeChat()) event.stopImmediatePropagation();
+  if (event.key === "Escape" && closeChat()) {
+    event.stopImmediatePropagation();
+    return;
+  }
+  if (event.key === "Tab" && !chatPanel?.hidden) {
+    const focusable = [...chatPanel.querySelectorAll('a[href], button:not([disabled]), textarea:not([disabled])')].filter((item) => item.offsetParent !== null);
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last?.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first?.focus();
+    }
+  }
 }, true);
