@@ -526,18 +526,7 @@
 }
 .company-manifesto .body-copy { min-width: 0; }
 .company-manifesto .facts-grid { gap: 12px; }
-.company-manifesto .facts-gÛŒm¢Gß≤⁄Óù∆≠y÷ice-card { min-height: 290px; }
-  .database-card { min-height: 370px; }
-  .footer-main { gap: 34px; }
-}
-
-@media (max-width: 1040px) {
-  html { scroll-padding-top: 92px; }
-  .shell { min-width: 0; }
-  .nav-row { gap: 22px; }
-  .main-nav { padding-bottom: max(40px, env(safe-area-inset-bottom)); }
-  .hero-copy { max-width: 660px; }
-  .cloudpack-feature-grid,
+.company-manifesto .facts-g˜ﬂm¢Gß≤⁄Óù∆≠y”k-feature-grid,
   .page-hero-grid,
   .sector-grid,
   .final-cta-grid,
@@ -818,6 +807,13 @@
 .founder-photo { min-height: 560px; max-height: 610px; }
 .founder-photo img { object-position: center 12%; image-rendering: auto; }
 .founder-copy { padding: clamp(44px, 4.7vw, 72px); }
+
+@media (min-width: 1367px) {
+  .founder-section .shell { width: min(calc(100% - 2 * var(--gutter)), 1480px); }
+  .founder-card { width: min(100%, 1440px); min-height: 650px; grid-template-columns: 650px minmax(0, 1fr); }
+  .founder-photo { min-height: 650px; max-height: 690px; }
+  .founder-copy { padding: 58px clamp(64px, 5vw, 88px); }
+}
 
 @media (min-width: 1041px) and (max-width: 1366px) {
   .founder-card { width: min(100%, 1160px); min-height: 500px; grid-template-columns: minmax(430px, .9fr) minmax(0, 1.1fr); }
