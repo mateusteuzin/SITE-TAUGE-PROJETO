@@ -75,9 +75,12 @@
     const featuredOnly = container.hasAttribute("data-featured");
     const source = featuredOnly ? clients.filter((client) => client.featured) : clients;
     const fragment = document.createDocumentFragment();
-    source.forEach((client) => fragment.append(createClientCard(client)));
+    const isMarquee = Boolean(container.closest("[data-client-marquee]"));
+    const displayClients = isMarquee ? [...source, ...source] : source;
+    displayClients.forEach((client) => fragment.append(createClientCard(client)));
     container.replaceChildren(fragment);
     container.removeAttribute("aria-busy");
+    container.closest("[data-client-marquee]")?.removeAttribute("aria-busy");
   }
 
   document.querySelectorAll("[data-client-grid]").forEach(renderClients);
