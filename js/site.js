@@ -24,7 +24,7 @@ function closeNavigation({ restoreFocus = false } = {}) {
   navToggle?.setAttribute("aria-expanded", "false");
   navToggle?.setAttribute("aria-label", "Abrir menu");
   setPageInert(false);
-  if (restoreFocus) navToggle?.focus();
+  if (restoreFocus) navToggle?.focus({ preventScroll: true });
 }
 
 navToggle?.addEventListener("click", () => {
@@ -38,7 +38,7 @@ navToggle?.addEventListener("click", () => {
   navToggle.setAttribute("aria-expanded", "true");
   navToggle.setAttribute("aria-label", "Fechar menu");
   setPageInert(true);
-  nav?.querySelector("a")?.focus();
+  nav?.querySelector("a")?.focus({ preventScroll: true });
 });
 
 submenuToggle?.addEventListener("click", () => {

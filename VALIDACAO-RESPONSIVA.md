@@ -14,3 +14,9 @@ Skills aplicadas: `breakpoints`, `layout-primitives` e `responsive-typography` d
 - JavaScript validado com `node --check`; referências locais dos oito HTML verificadas.
 
 Testes feitos em navegador com tamanhos simulados; aparelhos físicos e Safari não foram utilizados. O formulário mantém o envio pelo aplicativo de e-mail já existente.
+
+## Rondônia colorida e rolagem do cabeçalho
+
+Rondônia agora aparece em azul e turquesa no mapa. Asset final: `assets/images/mapa-presenca-rondonia-v4.webp`, 1267 × 1241px, transparente, 156 KB. Criado pelo ImageGen integrado e convertido para WebP para publicação. Prompt: colorir somente Rondônia no mesmo gradiente dos estados destacados, preservando os limites, relevo, enquadramento e transparência do mapa; não adicionar símbolos ou textos, pois os marcadores são aplicados pelo site.
+
+O cabeçalho mantém `position: sticky` desde o início; a classe de rolagem altera somente a sombra. O menu bloqueia a rolagem no elemento raiz, preservando o cabeçalho, e o foco evita rolagem automática. Verificados 77 casos de rolagem/menu em Chromium, nas larguras 320, 390, 768, 1040 e 1440px, além de 73 verificações de interação.

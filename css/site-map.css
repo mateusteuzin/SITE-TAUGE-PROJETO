@@ -3,10 +3,10 @@
 .presence-map .map-stage {
   width: min(100%, 560px);
   max-width: 100%;
-  aspect-ratio: 1045 / 1024;
+  aspect-ratio: 1267 / 1241;
   margin-inline: auto;
 }
-.presence-map .map-image { height: auto; aspect-ratio: 1045 / 1024; }
+.presence-map .map-image { height: auto; aspect-ratio: 1267 / 1241; }
 .presence-map figcaption { color: #a9bfce; font-size: .75rem; }
 .map-touch-hint { font-size: .75rem; }
 .marker-ro { top: 39%; left: 30%; }
