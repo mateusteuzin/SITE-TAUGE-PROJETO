@@ -80,11 +80,22 @@ document.addEventListener("keydown", (event) => {
 
 function updateHeader() {
   header?.classList.toggle("is-scrolled", window.scrollY > 24);
+  updateNavigationOffset();
+}
+
+function updateNavigationOffset() {
+  if (!header) return;
+  document.documentElement.style.setProperty("--nav-top", `${Math.max(0, header.getBoundingClientRect().bottom)}px`);
+}
+
+if (header && "ResizeObserver" in window) {
+  new ResizeObserver(updateNavigationOffset).observe(header);
 }
 
 updateHeader();
 window.addEventListener("scroll", updateHeader, { passive: true });
 window.addEventListener("resize", () => {
+  updateNavigationOffset();
   if (window.innerWidth > 1040) closeNavigation();
 });
 

@@ -1,0 +1,49 @@
+/* Keep the presence map inside its content column at every viewport. */
+.presence-grid > * { min-width: 0; }
+.presence-map .map-stage {
+  width: min(100%, 560px);
+  max-width: 100%;
+  aspect-ratio: 1045 / 1024;
+  margin-inline: auto;
+}
+.presence-map .map-image { height: auto; aspect-ratio: 1045 / 1024; }
+.presence-map figcaption { color: #a9bfce; font-size: .75rem; }
+.map-touch-hint { font-size: .75rem; }
+.marker-ro { top: 39%; left: 30%; }
+
+@media (max-width: 1040px) {
+  .presence-grid { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .presence-map { width: 100%; margin: 0; }
+  .presence-map .map-stage { width: min(100%, 520px); }
+}
+
+@media (max-width: 720px) {
+  /* Essential map content remains visible even before reveal animation runs. */
+  .js.reveal-ready .presence-map[data-reveal] { opacity: 1; transform: none; }
+  .presence-map .map-stage {
+    width: min(100%, 420px);
+    transform: none;
+    transform-style: flat;
+    filter: none;
+  }
+  .presence-map .map-stage::after { display: none; }
+  .presence-map .map-stage.is-active {
+    transform: perspective(1300px) rotateX(9deg) rotateY(-5deg) rotateZ(-1deg) scale(.97);
+    transform-style: preserve-3d;
+  }
+  .presence-map .map-marker { transform: translate(-50%, -50%); }
+  .presence-map .map-touch-hint { max-width: 100%; text-align: center; }
+  .presence-metrics { gap: 12px; }
+  .presence-metrics > span { min-width: 0; padding-right: 0; }
+  .presence-locations { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .presence-locations-title { grid-column: 1 / -1; }
+  .presence-locations span { font-size: .8125rem; }
+  .presence-metrics small { font-size: .8125rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .presence-map .map-stage,
+  .presence-map .map-stage.is-active { transform: none; filter: none; transition: none; }
+  .presence-map .map-image,
+  .presence-map .map-marker-pin { transition: none; }
+}

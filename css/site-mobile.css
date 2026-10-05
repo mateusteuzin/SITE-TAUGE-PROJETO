@@ -1,0 +1,89 @@
+/* Final responsive layer: content-sized grids, readable type and touch targets.
+   Uses the existing content breakpoints and the site's blue/green palette.
+   Guidance: https://github.com/dylantarre/design-system-skills
+   (breakpoints, layout-primitives, responsive-typography). */
+.contact-form .consent-field input {
+  flex: 0 0 20px;
+  width: 20px;
+  min-width: 20px;
+  height: 20px;
+  margin: 3px 0 0;
+  padding: 0;
+  accent-color: var(--green-dark);
+}
+.consent-field span { min-width: 0; overflow-wrap: anywhere; }
+.client-marquee { margin-inline: calc((100vw - 100%) / -2); }
+
+@media (max-width: 1040px) {
+  .main-nav { inset-block-start: var(--nav-top, 145px); overscroll-behavior: contain; }
+  .nav-row > .brand { min-width: 0; }
+  .nav-toggle { flex: 0 0 44px; cursor: pointer; }
+  .main-nav .nav-group > button { min-height: 48px; }
+  .footer-main > *, .field-row > * { min-width: 0; }
+}
+
+@media (max-width: 820px) {
+  /* Percent tracks plus a gap previously exceeded the available column width. */
+  .company-manifesto .content-grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (min-width: 821px) and (max-width: 1040px) {
+  .company-manifesto .content-grid {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  }
+}
+
+@media (max-width: 720px) {
+  body { font-size: 1rem; }
+  /* Phone content is immediately readable, including during fast scrolling. */
+  .js.reveal-ready [data-reveal] { opacity: 1; transform: none; }
+  .main-nav { inset-block-start: var(--nav-top, 129px); }
+  .hero-copy, .page-hero-grid > *, .section-intro > * { min-width: 0; }
+  main h1, main h2 { overflow-wrap: anywhere; }
+  .hero-copy h1 { font-size: clamp(2rem, 1.2rem + 4.8vw, 3.25rem); overflow-wrap: anywhere; }
+  .hero-copy > p, .section-intro > p { font-size: 1rem; }
+  .hero-actions { gap: 12px; }
+  /* Keep proof points in normal flow so text zoom never overlaps the hero. */
+  .executive-hero-content { min-height: 0; padding-block: 64px 32px; }
+  .executive-hero { min-height: 0; }
+  .hero-assurances-overlay {
+    position: relative;
+    bottom: auto;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px 16px;
+    padding-block: 0 32px;
+    font-size: .8125rem;
+  }
+  .hero-assurances-overlay span { align-items: flex-start; min-width: 0; }
+  .hero-assurances-overlay i { flex: 0 0 auto; }
+  .service-card p, .database-card-copy p, .module-list,
+  .channel-list strong, .footer-main a, .footer-main span,
+  .footer-brand p { font-size: .875rem; }
+  .contact-form label { font-size: .875rem; }
+  .contact-form input, .contact-form select, .contact-form textarea,
+  .chat-composer textarea { font-size: 1rem; }
+  .contact-form .consent-field { line-height: 1.6; margin-block: 20px; }
+  .contact-form .consent-field span { flex: 1; }
+  .contact-form .consent-field a { text-decoration: underline; text-underline-offset: 3px; }
+  .form-note, .form-status, .footer-bottom { font-size: .75rem; }
+  .footer-main h3 { font-size: 1rem; margin-bottom: 8px; }
+  .footer-main > div:not(.footer-brand) { gap: 0; }
+  .footer-main a { display: inline-flex; align-items: center; min-height: 44px; }
+  .client-logo-grid, .client-logo-grid-full {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .client-logo-card { padding-bottom: 42px; }
+  .client-logo-label { font-size: .75rem; line-height: 1.25; }
+  .chat-quick-reply { min-height: 44px; }
+}
+
+@media (max-width: 360px) {
+  .hero-assurances-overlay { grid-template-columns: minmax(0, 1fr); }
+  .client-logo-grid, .client-logo-grid-full { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
